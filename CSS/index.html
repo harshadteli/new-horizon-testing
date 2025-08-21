@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Horizon – State Level Competition</title>
+  <link rel="stylesheet" href="./CSS/style.css">
+  <!-- <link rel="stylesheet" href="./CSS/chatbot.css"> -->
+  <link rel="shortcut icon" href="./PAGES/IMAGES/logo.jpeg" type="image/x-icon">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #00539C;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .event {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .event:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .event h3 {
+      margin-bottom: 0.5rem;
+      color: #00539C;
+    }
+
+    .event p {
+      margin-bottom: 1rem;
+    }
+
+    .register-btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: #0077E6;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    .rules-btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: #ff9800;
+      color: #fff;
+      font-size: 1rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+
+    .register-btn:hover,
+    .rules-btn:hover {
+      background: #005bb5;
+    }
+
+    .rules-btn:hover {
+      background: #e68900;
+    }
+
+    .event::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: #0077E6;
+      bottom: 0;
+      left: -100%;
+      transition: left 0.5s ease;
+    }
+
+    .event:hover::after {
+      left: 0;
+    }
+
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      animation: slideIn 0.3s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+      color: red;
+    }
+
+    footer {
+      text-align: center;
+      margin: 2rem 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    #limitMessage {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff4d4d;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-weight: bold;
+      z-index: 2000;
+    }
+
+    @media screen and (max-width: 600px) {
+
+      .register-btn,
+      .rules-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+      /* Floating avatar button */
+        .ai-guide-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+            /* background: #fff; */
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 26px;
+            z-index: 999;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Guide panel */
+        .ai-guide-panel {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: white;
+            border-radius: 15px;
+            width: 300px;
+            max-height: 400px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .ai-guide-header {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-close-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .ai-guide-commands {
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ai-command-btn {
+            background: #eee;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .ai-command-btn:hover {
+            background: #ddd;
+        }
+
+        .ai-guide-chat {
+            padding: 10px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .ai-msg {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 10px;
+            max-width: 100%;
+            font-size: 14px;
+        }
+
+        .ai-msg.user {
+            background: #d1f0ff;
+            align-self: flex-end;
+        }
+
+        .ai-msg.bot {
+            background: #f1f1f1;
+            align-self: flex-start;
+        }
+
+        /* One-time tooltip */
+        .ai-welcome-tooltip {
+            position: fixed;
+            bottom: 100px;
+            right: 100px;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeInOut 4s ease-in-out forwards;
+            z-index: 1001;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            10% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+        }
+  </style>
+</head>
+
+<body>
+
+  
+ <!-- For AI Chatbot Integration -->
+
+   <button class="ai-guide-btn" onclick="toggleGuide();">🤖</button>
+
+    <!-- Guide Panel -->
+    <div class="ai-guide-panel" id="aiGuidePanel">
+        <div class="ai-guide-header">
+            BCS Assistent
+            <button class="ai-close-btn" onclick="closeGuide()">✖</button>
+        </div>
+        <div class="ai-guide-commands" id="aiCommands"></div>
+        <div class="ai-guide-chat" id="aiChat"></div>
+    </div>
+
+
+  <header>
+    <h1>New Horizon 2K26</h1>
+    <p>Paper Presentation,Poster/Model Presentation and Programming skill competition organized by</p>
+    <p><b>B.C.S. Department</b>,<br> The New College, Kolhapur</p>
+    <button class="rules-btn" onclick="openModal()">📜 View Rules & Regulations</button>
+    <button class="rules-btn" onclick="openprizeModal()">🏅 Prizes</button>
+  </header>
+
+  <div class="container">
+
+    
+
+
+    <div class="event-grid">
+    
+
+
+
+      <!-- Poster Presentation -->
+      <div class="event">
+        <h3>Poster/Model Presentation</h3>
+        <p>Create and present a poster showcasing your innovative ideas and design.</p>
+        <p><strong>Theme for Poster/Model Presentation:</strong></p>
+        <ul>
+          <li>AI:Ethics and Social Responsibility.</li>
+          <li>AI:Adoption and Application.</li>
+          <li>Machine Learning & it's Application.</li>
+          <li>Innovations in Science & Technology.</li>
+        </ul>
+
+
+
+
+
+        <a id="posterBtn" class="register-btn" href="./PAGES/poster.html">Register for Poster</a>
+      </div>
+
+      <!-- Paper Presentation -->
+      <div class="event">
+        <h3>Paper Presentation</h3>
+        <p>Present your original research paper with clarity and innovation.</p>
+        <p><strong>Theme for Paper Presentation:</strong></p>
+        <ul>
+          <li>AI:Ethics and Social Responsibility.</li>
+          <li>AI:Adoption and Application.</li>
+          <li>Machine Learning & it's Application.</li>
+          <li>Innovations in Science & Technology.</li>
+        </ul>
+
+
+
+
+
+        <a id="paperBtn" class="register-btn" href="./PAGES/paper.html">Register for Paper</a>
+      </div>
+
+      <!-- Programming Challenge -->
+      <div class="event">
+        <h3>Programming Skills Challenge</h3>
+        <p>Test your coding skills in a competitive environment.</p>
+        <ul>
+          <li><strong>Aptitude test to short list Participants.</strong></li>
+          <li>Programming skill test using C++/JAVA language for short listed participants only.</li>
+        </ul>
+
+
+
+
+
+        <a id="programBtn" class="register-btn" href="./PAGES/programming.html">Register for Programming</a>
+
+      </div>
+    </div><br>
+    <div class="event">
+      <h3>About Event</h3>
+      <small>
+        <p>New Horizon Programming events help to students enhance their Coding,Logic,Problem-Solving Skills and the
+          ability to apply theorectical concepts to real-world challenges.</p>
+      </small>
+      <hr>
+      <p>
+      <p>Event Date:-<small><strong>Friday 31st January,2026.</strong></small></p>
+      <p>Time:<small><strong>10:00 A.M onwards.</strong></small></p>
+      <p>Venue:<small><strong>Department of Computer Science(Entire),The New College,Kolhapur.</strong></small></p>
+      <hr>
+
+      <p style="color: red;"><strong>Event Rule:-</strong></p>
+      <p style="color: orangered;">Paper Presentation:-</p>
+
+      <ul>
+        <li>Maximum <b>two</b> students in one team</li>
+        <li>Each Team can only present <b>one</b> paper using <b>PPT</b>.</li>
+        <li>Format of the paper should be <b style="color: green;">
+            Introduction,Contents,Conclusion & references.
+          </b></li>
+        <li><b>One hard copy of the paper should be submitted to the Committee.</b></li>
+        <li>L.C.D projector with Laptop will be provided.</li>
+      </ul>
+      <hr><br>
+      <p style="color: orangered;">Poster/Model Presentation:-</p>
+      <ul>
+        <li>Maximum <b>two</b> students in one team</li>
+        <li>Poster size: minimum <b>24 X 36</b> inch.</li>
+      </ul>
+      <hr><br>
+      <p style="color: orangered;">Programming Skill Test:-</p>
+      <ul>
+        <li><strong>Individual participation</strong> .</li>
+        <li>Aptitude test will be conducted between <strong>11:30 A.M</strong>
+          to <strong>12.00 PM</strong></li>
+        <li>Programming skills test using <font color="green">C++/JAVA</font> for shortlisted participants:
+          <br><b>Duration: 2Hrs.</b>
+        </li>
+      </ul>
+
+      <hr>
+      <p style="color: red;font-size: 28px;"><small><strong>Contact Us</strong></small></p>
+      <p>Office Contact:-<small><strong>(0231)2621187</strong>.</small></p>
+      <p>Smt. Vaykul S.S :-<small><strong>8788997668</strong>.</small></p>
+      <p>Smt. Nitturkar D.A :-<small><strong>7218670577</strong>.</small></p>
+      <p>Smt. Deshmukh S.S :-<small><strong>9970849562</strong>.</small></p>
+      <p>Smt. Ashtekar A.S :-<small><strong>9403498676</strong>.</small></p>
+      <!-- <strong>Entry Fee:</strong> ₹150</p> -->
+    </div><br>
+  </div>
+
+  </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="rulesModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>General Instructions</h2>
+      <ul>
+        <li>Registration Fee:- <strong>₹150/-(including breakfast & Lunch)</strong>
+          should be paid on arrival at Registration Counter.</li>
+        <li><strong>
+            <font color='red'>Each Participant can register for only 2 events.</font>
+          </strong></li>
+        <li>Spot Registration on: <strong>31th Jan,2026</strong>.</li>
+        <li>College ID is mandatory for registration.</li>
+        <li>Certificates will be provided to all participants.</li>
+        <!-- <li>Judges' decisions will be final and binding.</li> -->
+        <li>Events start at <strong>10:00 AM </strong>onwards.</li>
+      </ul>
+    </div>
+  </div>
+  <!-- Prizes Model -->
+  <div class="modal" id="prizeModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeprizeModal()">&times;</span>
+      <h2 style="color: green;">🏆Prizes for each Event</h2>
+      <ul>
+        <li>
+          <font color="red">First Prize:</font>:<strong><i>₹2000/-</i></strong>+Trophy+Certificate.
+        </li>
+        <li>
+          <font color="red">Second Prize:</font>:<strong><i>₹1500/-</i></strong>+Trophy+Certificate.
+        </li>
+        <li>
+          <font color="red">Third Prize:</font>:<strong><i>₹1000/-</i></strong>+Trophy+Certificate.
+        </li>
+        <li><strong>Certificate of participation will be given to each Participant.</strong></li>
+      </ul>
+    </div>
+  </div>
+  <!-- Limit Message -->
+  <div id="limitMessage">❌ You can participate in only two events.</div>
+
+  <footer>
+    <p>&copy; 2025 The New College, Kolhapur – B.C.S. Department</p>
+  </footer>
+
+  <script>
+    function openModal() {
+      document.getElementById('rulesModal').style.display = 'flex';
+    }
+    function openprizeModal() {
+      document.getElementById('prizeModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('rulesModal').style.display = 'none';
+    }
+    function closeprizeModal() {
+      document.getElementById('prizeModal').style.display = 'none';
+    }
+
+    function showLimitMessage() {
+      const msg = document.getElementById("limitMessage");
+      msg.style.display = "block";
+      setTimeout(() => {
+        msg.style.display = "none";
+      }, 3000);
+    }
+
+    let registeredEvents = JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+    function registerEvent(button, eventKey) {
+      registeredEvents = JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+      if (registeredEvents.includes(eventKey)) {
+        button.textContent = "✅ Already Registered";
+        button.style.backgroundColor = "#28a745";
+        button.disabled = true;
+        return;
+      }
+
+      if (registeredEvents.length >= 2) {
+        showLimitMessage();
+        return;
+      }
+
+      registeredEvents.push(eventKey);
+      localStorage.setItem("registeredEvents", JSON.stringify(registeredEvents));
+
+      button.textContent = "✅ Registered";
+      button.style.backgroundColor = "#28a745";
+      button.disabled = true;
+    }
+
+    window.onload = function () {
+      const registered = JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+      const posterBtn = document.getElementById("posterBtn");
+      const isPosterRegistered = localStorage.getItem("posterRegistered");
+      const paperBtn = document.getElementById("paperBtn");
+      const isPaperRegistered = localStorage.getItem("paperRegistered");
+      const programBtn = document.getElementById("programBtn");
+      const isProgramRegistered = localStorage.getItem("programRegistered");
+
+      if (isPosterRegistered === "true") {
+        posterBtn.textContent = "✅ Registered for Poster";
+        posterBtn.style.backgroundColor = "#28a745";
+        posterBtn.href = "./PAGES/server1.html";
+        if (!registered.includes("poster")) {
+          registered.push("poster");
+          localStorage.setItem("registeredEvents", JSON.stringify(registered));
+        }
+      }
+      if (isPaperRegistered === "true") {
+        paperBtn.textContent = "✅ Registered for Paper";
+        paperBtn.style.backgroundColor = "#28a745";
+        paperBtn.href = "./PAGES/server2.html";
+        if (!registered.includes("paper")) {
+          registered.push("paper");
+          localStorage.setItem("registeredEvents", JSON.stringify(registered));
+        }
+      }
+      if (isProgramRegistered === "true") {
+        programBtn.textContent = "✅ Registered for Programming Skills";
+        programBtn.style.backgroundColor = "#28a745";
+        programBtn.href = "./PAGES/server3.html";
+        if (!registered.includes("program")) {
+          registered.push("program");
+          localStorage.setItem("registeredEvents", JSON.stringify(registered));
+        }
+      }
+
+      const eventButtons = {
+        paper: document.querySelector("button[onclick*='paper']"),
+        programming: document.querySelector("button[onclick*='programming']")
+      };
+
+      for (let key in eventButtons) {
+        if (registered.includes(key)) {
+          eventButtons[key].textContent = "✅ Registered";
+          eventButtons[key].style.backgroundColor = "#28a745";
+          eventButtons[key].disabled = true;
+        }
+      }
+
+      // Show modal only on first visit
+      if (!localStorage.getItem("rulesShown")) {
+        setTimeout(() => {
+          openModal();
+          localStorage.setItem("rulesShown", "true");
+        }, 2000);
+      }
+    };
+
+    window.onclick = function (event) {
+      const modal = document.getElementById('rulesModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+    if (!localStorage.getItem("rulesShown")) {
+      setTimeout(() => {
+        openModal();
+        localStorage.setItem("rulesShown", "true");
+      }, 2000);
+    }
+
+  </script>
+  <script>
+     /* === CONFIG SECTION === */
+        const guideCommands = [
+            { text: "👨‍💻 Who Participate", audio: "./PAGES/VOICE/participate.mp3", reply: "The participant from B.S.C.Comp(Entire),B.S.C,B.C.A,B.COM(C.A) can participation in this event." },
+            { text: "📜 Rules and Regulations", audio: "./PAGES/VOICE/rules.mp3", reply: "To must be remember that the student can participate in maximum two events and other rules & regulations can see from main page." },
+            { text: "🏆 Prizes", audio: "./PAGES/VOICE/prizes.mp3", reply: "Certificate of participation will be given to each participant.\n Prizes for each event:\n\n 🏆First Prize - Rs.2000/- + Trophy + Certificate.\n\n🏆 Second Prize - Rs.1500/- + Trophy + Certificate.\n\n 🏆Third Prize - Rs.1000/- + Trophy + Certificate" },
+            { text: "📲 How to Register", audio: "./PAGES/VOICE/register.mp3", reply: "Follow the steps to registration the form \n\n1]Go to respective event that you can participate.\n 2]Click on the Registration button.\n 3]Fill up the form correctly and submit it.\n 4]Please wait for seconds to submitting the form.\n 5]Finally the form submitted successfully show message." },
+            { text: "🏢 Contact us", audio: "./PAGES/VOICE/contact.mp3", reply: "Here I am showing the some contact number below that can contact us easily\n\nOffice Contact - (0231)2621187\n\nSmt Vaykul S.S - 8788997668\n\nSmt Deshmukh S.S - 9970849562\n\nSmt Ashtekar A.S - 9403498676." },
+            { text: "💵 Help with Payment", audio: "./PAGES/VOICE/payment.mp3", reply: "To select the online or offline payment method in the form then according to you way  in case of online payment pay with 📲QR code scanner provided by account department on the pamlet through phone-pe or goggle-pay.\n Once you can pay the amount then take the screenshot & upload to google form. This form provided by account department & take the receipt of payment on event day." }
+        ];
+
+        /* === DOM ELEMENTS === */
+        const aiCommandsContainer = document.getElementById("aiCommands");
+        const aiChat = document.getElementById("aiChat");
+        const aiGuidePanel = document.getElementById("aiGuidePanel");
+
+        /* === INIT DEFAULT COMMAND BUTTONS === */
+        guideCommands.forEach(cmd => {
+            let btn = document.createElement("button");
+            btn.className = "ai-command-btn";
+            btn.innerText = cmd.text;
+            btn.onclick = () => handleCommand(cmd);
+            aiCommandsContainer.appendChild(btn);
+        });
+
+        /* === TOGGLE PANEL === */
+        function toggleGuide() {
+            aiGuidePanel.style.display = aiGuidePanel.style.display === "flex" ? "none" : "flex";
+        }
+        function closeGuide() {
+            aiGuidePanel.style.display = "none";
+        }
+
+        /* === HANDLE COMMAND CLICK === */
+        function handleCommand(cmd) {
+            addMessage(cmd.text, "user");
+            let audio = new Audio(cmd.audio);
+            audio.play();
+            setTimeout(() => {
+                addMessage(cmd.reply, "bot");
+            }, 800);
+        }
+
+        /* === ADD CHAT MESSAGE === */
+        function addMessage(text, sender) {
+            let msg = document.createElement("div");
+            msg.className = `ai-msg ${sender}`;
+            msg.innerText = text;
+            aiChat.appendChild(msg);
+            aiChat.scrollTop = aiChat.scrollHeight;
+        }
+
+        /* === ONE-TIME WELCOME MESSAGE === */
+        window.addEventListener("load", () => {
+            if (!localStorage.getItem("aiGuideWelcomeShown")) {
+                let tooltip = document.createElement("div");
+                tooltip.className = "ai-welcome-tooltip";
+                tooltip.innerText = "Need any help? Just ask me! ↘️";
+                document.body.appendChild(tooltip);
+
+                localStorage.setItem("aiGuideWelcomeShown", "true");
+
+                setTimeout(() => {
+                    tooltip.remove();
+                }, 4000);
+            }
+        });
+  </script>
+
+
+
+
+  <script src="./PAGES/chatbot.js"></script>
+</body>
+
+</html>

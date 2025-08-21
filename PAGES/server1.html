@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Success - Poster Presentation</title>
+  <link rel="stylesheet" href="../CSS/server.css">
+  <link rel="shortcut icon" href="./IMAGES/logo.jpeg" type="image/x-icon">
+  <style>
+    
+  </style>
+</head>
+<body>
+  <div class="success-box">
+    <h2>✅ Registration Successful!</h2>
+    <p><strong id="studentName"></strong>, you have successfully registered for</p>
+    <p><strong>Poster Presentation</strong></p>
+    <p>Organized by B.C.S Department, <font color="blue"><b>The New College, Kolhapur</b></font></p>
+   <small><p style="font-size: 15px;">Event Date:  <strong>Friday,31st January 2026</strong></p></small>
+   <small><p style="font-size: 15px;">Event Time:  <strong>10.00 A.M onwards</strong></p></small>
+   <!-- <small><p style="font-size: 15px;">Venue:  <strong>The New College,Kolhapur</strong></p></small> -->
+    <p style="font-size: 18px;">📜 Submitted on: <strong id="submissionDate"></strong></p>
+    <a href="../index.html" class="back-btn">🔙 Back to Home</a>
+  </div>
+
+  <script>
+    // Get stored values from localStorage
+    const studentName = localStorage.getItem('posterStudent');
+    const submissionDate = localStorage.getItem('posterSubmissionDate');
+
+    // Set participant name
+    document.getElementById('studentName').textContent = studentName || "Participant";
+
+    // Set submission date (or show default text)
+    document.getElementById('submissionDate').textContent = submissionDate || "Not Available";
+  </script>
+  <script src="../JS/hide.js"></script>
+</body>
+</html>
