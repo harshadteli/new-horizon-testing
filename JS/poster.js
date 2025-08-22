@@ -13,7 +13,7 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbxrPqc2AYHZCjl4MizF0U
         console.log('Success!', response);
         // Delay to let the user see the spinner before redirecting
         setTimeout(() => {
-          window.location.href = "server2.html"; // Change to your next page
+          window.location.href = "server1.html"; // Change to your next page
         }, 500);
       })
       .catch(error => {
@@ -45,4 +45,5 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbxrPqc2AYHZCjl4MizF0U
       localStorage.setItem('posterSubmissionDate', formattedDate);
 
       
+
     });
