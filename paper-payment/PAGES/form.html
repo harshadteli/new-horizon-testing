@@ -1,0 +1,65 @@
+<!-- This is the paper Presentation payment info form -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="../CSS/form.css">
+    <link rel="shortcut icon" href="../IMAGES/banner.png" type="image/x-icon">
+    <!-- External Links -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="https://harshadteli.github.io/payment-info-testing
+/banner.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+    <div class="card">
+        <form id="payment" method="post">
+            <h2>Upload Payment Screenshot</h2>
+            <label>Your Name</label>
+            <input type="text" id="userName" placeholder="Enter your name" pattern="[A-Za-z\s]+"
+                title="Please enter only letters (no numbers)" name="name" required>
+            <label>Your Email</label>
+            <input type="email" placeholder="Enter your email" title="Please enter valid email" name="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.][a-z]{2,}$" required>
+            <label>Event Name</label>
+            <input type="text" value="Paper Presentation" name="event" readonly>
+            <label>Payment Screenshot</label>
+            <input type="file" id="media" accept="image/*" name="media" required>
+            <img id="previewImg" class="preview">
+            <button type="submit" class="btn primary" style="
+            padding: 10px;border: none;border-radius: 8px;font-weight: 600;
+            cursor: pointer;margin-top: 14px;width: 100%;background: var(--blue);color: #fff;">Submit
+                Screenshot</button>
+            <button class="btn outline" onclick="window.location.href='../qrcode.html'" style="padding: 10px;border: none;border-radius: 8px;font-weight: 600;
+            cursor: pointer;margin-top: 14px;width: 100%;background: #fff;
+            border: 1px solid var(--blue);color: var(--blue);">Cancel</button>
+        </form>
+    </div>
+    <div id="loading-spinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50% ,-50%);
+font-size: 18px; background: rgba(0,0,0,0.7);color: white;padding: 20px 40px; border-radius: 10px;">
+        ⌛Please wait for few Seconds...
+    </div>
+
+    <script>
+        const LS_KEY = 'nh_payment_upload_v1';
+        const fileInput = document.getElementById("media");
+        const previewImg = document.getElementById('previewImg');
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0]; if (!f) return;
+            const reader = new FileReader();
+            reader.onload = ev => { previewImg.src = ev.target.result; previewImg.style.display = "block"; };
+            reader.readAsDataURL(f);
+        });
+    </script>
+    <script src="../JS/hide.js"></script>
+    <script src="../JS/form.js"></script>
+</body>
+
+</html>

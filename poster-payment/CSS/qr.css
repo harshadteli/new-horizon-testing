@@ -1,0 +1,65 @@
+ :root {
+      --blue: #004080;
+      --accent: #008000;
+      --bg: #f4f8fb;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      color: var(--blue);
+    }
+
+    .qr-img {
+      width: 200px;
+      max-width: 100%;
+      border: 5px solid var(--blue);
+      border-radius: 10px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 8px;
+    }
+
+    .primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .outline {
+      border: 1px solid var(--blue);
+      background: #fff;
+      color: var(--blue);
+    }
+
+    .upload-state {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 20px;
+      color: #fff;
+      background: var(--blue);
+      padding: 10px;
+    }

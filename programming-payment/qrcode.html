@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Online Payment:Programming - QR code</title>
+  <link rel="stylesheet" href="./CSS/qr.css">
+  <link rel="shortcut icon" href="./IMAGES/banner.png" type="image/x-icon">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>New Horizon 2k26</h1>
+      <p>Organized by BCS Department</p>
+    </header>
+
+    <h2>Event Registration</h2>
+    <p class="fee">Registration Fee: ₹150 (per student)</p>
+    <p>Scan the QR code to complete your payment</p>
+   <a href="https://harshadteli.github.io/QRcode-demo-page/">
+     <img src="./IMAGES/QR.png" alt="Payment QR" class="qr-img">
+   </a>
+
+    <div>
+      <button class="btn primary" onclick="alert('Please upload screenshot after payment for confirmation!')">I Have Paid ₹150/student</button>
+      <button id="uploadBtn" class="btn outline" onclick="goUpload()">Upload Screenshot</button>
+    </div>
+    <p id="uploadStatus" style="font-size:14px;margin-top:8px;color:#555"></p>
+
+    <footer>© 2025 New Horizon 2k26 | BCS Department</footer>
+  </div>
+  <script src="./JS/qr.js"></script>
+  <script src="./JS/hide.js"></script>
+</body>
+
+</html>
