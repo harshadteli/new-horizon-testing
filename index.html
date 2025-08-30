@@ -23,9 +23,71 @@
   <meta name="coverage" content="Worldwide">
   <meta name="distribution" content="Global">
   <meta name="owner" content="Harshad Teli">
+
+   <!-- Open Graph Tags (Whatsapp,Facebook,twitter,Instagram,Linkdin) -->
+    <meta property="og:title" content="New Horizon – NCKBCS">
+    <meta property="og:description" content="New Horizon Event Registration in Paper,Poster and Programming Skills.">
+    <meta property="og:image" content="https://harshadteli.github.io/new-horizon-testing
+./PAGES/IMAGES/logo.jpeg">
+    <meta property="og:url" content="https://harshadteli.github.io/new-horizon-testing
+/">
+  <!-- For the twitter Card -->
+   <meta name="twitter:Card" content="summary_large_image">
+   <meta name="twitter:title" content="New Horizon – NCKBCS">
+   <meta name="twitter:description" content="New Horizon Event Registration in Paper,Poster and Programming Skills.">
+ <meta name="twitter:image" content="https://harshadteli.github.io/new-horizon-testing
+./PAGES/IMAGES/logo.jpeg">
+
   <link rel="stylesheet" href="./CSS/index.css">
   <link rel="stylesheet" href="./CSS/chatbot.css">
+  <link rel="stylesheet" href="./CSS/validation.css">
   <link rel="shortcut icon" href="./PAGES/IMAGES/logo.jpeg" type="image/x-icon">
+  <style>
+      #popup {
+      display: none;
+      width:300px;
+      height:auto;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ff4d4d;
+      color: white;
+      padding: 40px 30px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -45%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Overlay background */
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 999;
+    }
+
+    #popup button {
+      margin-top: 10px;
+      background: white;
+      color: #ff4d4d;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 <!-- For AI Chatbot Integration -->
@@ -62,7 +124,7 @@
           <li>Machine Learning & it's Application.</li>
           <li>Innovations in Science & Technology.</li>
         </ul>
-        <a id="posterBtn" class="register-btn" href="./PAGES/poster.html">Register for Poster</a>
+        <a id="posterBtn" class="register-btn"   onclick="return selectEvent(event, this)" href="./PAGES/poster.html">Register for Poster</a>
       </div>
 <!-- Paper Presentation -->
       <div class="event">
@@ -75,7 +137,7 @@
           <li>Machine Learning & it's Application.</li>
           <li>Innovations in Science & Technology.</li>
         </ul>
-<a id="paperBtn" class="register-btn" href="./PAGES/paper.html">Register for Paper</a>
+<a id="paperBtn" class="register-btn"   onclick="return selectEvent(event, this)" href="./PAGES/paper.html">Register for Paper</a>
       </div>
 <!-- Programming Challenge -->
       <div class="event">
@@ -85,7 +147,7 @@
           <li><strong>Aptitude test to short list Participants.</strong></li>
           <li>Programming skill test using C++/JAVA language for short listed participants only.</li>
         </ul>
-<a id="programBtn" class="register-btn" href="./PAGES/programming.html">Register for Programming</a>
+<a id="programBtn" class="register-btn"   onclick="return selectEvent(event, this)" href="./PAGES/programming.html">Register for Programming</a>
       </div>
     </div><br>
     <div class="event">
@@ -150,14 +212,21 @@
       <h2>General Instructions</h2>
       <ul>
         <li>Registration Fee:- <strong>₹150/-(including breakfast & Lunch)</strong>
-          should be paid on arrival at Registration Counter.</li>
+         The payment should be made at the registration counter (either online via the 
+         given QR code or offline at the counter).</li>
         <li><strong>
-            <font color='red'>Each Participant can register for only 2 events.</font>
+            <font color='red'>Each Participant can register for only 2 events,
+              <font color="blue"><small>(Fees apply for each event per student)</small></font>.</font>
           </strong></li>
         <li>Spot Registration on: <strong>31th Jan,2026</strong>.</li>
         <li>College ID is mandatory for registration.</li>
         <li>Certificates will be provided to all participants.</li>
         <li>Events start at <strong>10:00 AM </strong>onwards.</li>
+          <li><strong>
+            <font color='red'>Last Date of On Line Registration: 30 Jan,2026.</font>
+          
+          </strong></li>
+          <small>  <p>(On the spot registration is allowed.)</p></small>
       </ul>
     </div>
   </div>
@@ -188,7 +257,19 @@
   </footer>
   <script src="./PAGES/chatbot.js"></script>
   <script src="./JS/index.js"></script>
-  <script src="./JS/hide.js"></script>
+  <!-- For Validation (Event Rules) -->
+
+    <!-- Custom Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <h3>⚠️ Limit Reached!</h3>
+      <p>You can participate in only two events.</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  
+  <script src="./JS/hide.js"></script> 
+   <script src="./JS/validation.js"></script>
 </body>
 
 </html>
