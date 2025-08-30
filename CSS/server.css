@@ -35,3 +35,16 @@
     .back-btn:hover {
       background-color: #1b5e20;
     }
+    .payment-btn {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: rgb(101, 101, 220);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .payment-btn:hover {
+      background-color: red;
+    }
