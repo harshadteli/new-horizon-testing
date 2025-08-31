@@ -20,6 +20,14 @@
     justify-content: center;
     align-items: center; 
         }
+.ai-close-btn img{
+            width: 10%;
+            height: 10%;
+            object-fit: cover;
+        }
+
+        
+
 
         
 
@@ -136,4 +144,5 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
         }
